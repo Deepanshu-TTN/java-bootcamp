@@ -20,6 +20,7 @@ public class Main {
 
     public static void logMockWithSingleton() {
         // here we only use a single instance of the logger due to design pattern
+        // limitations - Incredibly hard to mock, Threading issues: its like a glorified global variable
         LoggerSingleton logger1 = LoggerSingleton.getInstance();
         LoggerSingleton logger2 = LoggerSingleton.getInstance();
 
