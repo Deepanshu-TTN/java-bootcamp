@@ -2,8 +2,7 @@ import java.util.Scanner;
 
 public class Question7 {
     public static void main(String[] args) {
-
-        try (Scanner scanner = new Scanner(System.in)) { //doubt
+        try (Scanner scanner = new Scanner(System.in)) { //doubt - finally close automatically, scanner scoped inside try
             System.out.println("Try block");
             System.out.print("Enter numerator: ");
             int numerator = Integer.parseInt(scanner.nextLine());
