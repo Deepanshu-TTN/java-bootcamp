@@ -1,12 +1,9 @@
 package SingletonPattern;
 
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
 //        logMockWithoutSingleton();
         logMockWithSingleton();
-        Scanner s = new Scanner(System.in);
     }
 
     public static void logMockWithoutSingleton() {
