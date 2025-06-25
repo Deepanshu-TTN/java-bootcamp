@@ -22,12 +22,4 @@ public class Question1 {
         }
         return sum;
     }
-
-    void something(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("hello ");
-        sb.append("there");
-        String myString = sb.toString();
-        System.out.println(myString);
-    }
 }
