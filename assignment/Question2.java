@@ -23,7 +23,7 @@ public class Question2<T> {
         Collections.sort(employees, new Comparator<Employee>() {
             @Override
             public int compare(Employee o1, Employee o2) {
-                return -o1._salary.compareTo(o2._salary);
+                return -o1.salary.compareTo(o2.salary);
             }
         });
         System.out.println("\nSorted through salary:");
@@ -34,21 +34,21 @@ public class Question2<T> {
 }
 
 class Employee implements Comparable<Employee>{
-    Double _age; Double _salary; String _name;
+    Double age; Double salary; String name;
 
     Employee(Double age, Double salary, String name) {
-        _age = age;
-        _salary = salary;
-        _name = name;
+        this.age = age;
+        this.salary = salary;
+        this.name = name;
     }
 
     @Override
     public int compareTo(Employee o) {
-        return _name.compareTo(o._name);
+        return name.compareTo(o.name);
     }
 
     @Override
     public String toString() {
-        return _name + ", " + _age + ", " + _salary;
+        return name + ", " + age + ", " + salary;
     }
 }
