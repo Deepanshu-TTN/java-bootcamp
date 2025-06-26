@@ -33,20 +33,20 @@ public class Question2 {
 }
 
 class User implements Serializable {
-    String _firstName;
-    String _lastName;
-    byte _age;
-    String _phoneNumber;
+    String firstNamr;
+    String lastName;
+    byte age;
+    String phoneNumber;
 
     public User(String firstname, String lastname, byte age, String phoneNumber) {
-        _firstName = firstname;
-        _lastName = lastname;
-        _age = age;
-        _phoneNumber = phoneNumber;
+        this.firstNamr = firstname;
+        this.lastName = lastname;
+        this.age = age;
+        this.phoneNumber = phoneNumber;
     }
 
     @Override
     public String toString() {
-        return _firstName + " " + _lastName + ", Age: " + _age + ", Phone: " + _phoneNumber;
+        return firstNamr + " " + lastName + ", Age: " + age + ", Phone: " + phoneNumber;
     }
 }
