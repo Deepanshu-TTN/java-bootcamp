@@ -1,50 +1,94 @@
 import java.util.*;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-class Employee {
-    int id; String name; double netWorth;
-    Employee(int id, String name, double netWorth){
-        this.id = id;
-        this.name = name;
-        this.netWorth = netWorth;
+public class Scratch {
+    public static void main(String[] args) {
+        /**/
+        List<Employee> employees = Arrays.asList(
+                new Employee("Alice", 101, 75000.0, "HR"),
+                new Employee("Bob", 102, 85000.0, "Finance"),
+                new Employee("Charlie", 103, 65000.0, "IT"),
+                new Employee("Diana", 104, 92000.0, "Finance"),
+                new Employee("Evan", 105, 58000.0, "HR"),
+                new Employee("Fay", 106, 75000.0, "IT")
+        );
+        // avg salary
+        System.out.println("\nAverage salary");
+        System.out.println(employees.stream().collect(Collectors.averagingDouble(e->e.salary)));
+
+        // employee with max salary
+        System.out.println("\nEmployee with max salary");
+        System.out.println(employees.stream().max(Comparator.comparingDouble(e -> e.salary)));
+        /*
+        employees.stream()
+                .collect(Collectors.groupingBy(
+                        e -> e.dept,
+                        Collectors.counting()
+                )).forEach((dept, count) -> {
+                    System.out.println(dept + ": " + count);
+                });
+
+        employees.stream()
+                .collect(Collectors.groupingBy(
+                        e -> e.dept,
+                        Collectors.mapping(e -> e.name, Collectors.toList())
+                )).forEach((dept, lis)-> System.out.println(dept+": "+lis));
+        */
+
+        List<Integer> list = Arrays.asList(11,24,2,7,14,90,12,5,1,2,2, 200,11, 29);
+
+        // cumulative sum
+        System.out.println(list.stream().reduce(0,Integer::sum));
+
+        // even numbers in order
+        System.out.println(list.stream().distinct().sorted().filter(i->i%2==0).toList());
+
+        // print numbers prefixed with 2
+        System.out.println(
+                list.stream().distinct().map(Object::toString).filter(e->e.startsWith("2")).toList()); //TODO ask why object tostring give strings
+        //same as
+//        System.out.println(
+//                list.stream().distinct().map(String::valueOf).filter(e->e.startsWith("2")).toList());
+
+        // find duplicates and counts
+        System.out.println(
+                list.stream().collect(Collectors.groupingBy(e->e, Collectors.counting()))
+                        .entrySet().stream().filter(e->e.getValue()>1).toList());
+
+
+//        List<List<Integer>> list = Arrays.asList(
+//                Arrays.asList(1,2,3,4),
+//                Arrays.asList(5,6,7),
+//                Arrays.asList(8,9)
+//        );
+//        List<Integer> newList = list.stream().flatMap(Collection::stream).toList();
+
+//        System.out.flush();
+
     }
 
-    void upWorth(double e){
-        this.netWorth *= e;
+}
+
+class Employee {
+    String name;
+    int id;
+    double salary;
+    String dept;
+
+    public Employee(String name, int id, double salary, String dept) {
+        this.name = name;
+        this.id = id;
+        this.salary = salary;
+        this.dept = dept;
     }
 
     @Override
     public String toString() {
-        return "Employee{" + "id=" + id +
-                ", name='" + name + '\'' +
-                ", netWorth=" + netWorth +
+        return "Employee{" +
+                "name='" + name + '\'' +
+                ", id=" + id +
+                ", salary=" + salary +
+                ", dept='" + dept + '\'' +
                 '}';
-    }
-}
-
-public class Scratch {
-    private static Employee[] arrayOfEmps = {
-            new Employee(1, "Jeff Bezos", 100000.0),
-            new Employee(2, "Bill Gates", 200000.0),
-            new Employee(3, "Mark Zuckerberg", 300000.0)
-    };
-
-    public static void main(String[] args) {
-        List<Employee> employeeList = Arrays.asList(arrayOfEmps);
-        int[] ids = {1,2,3};
-
-        employeeList.stream().forEach(e -> e.upWorth(1.5));
-
-        System.out.println(Stream.of(Arrays.asList(ids)).count());
-        System.out.println(Stream.of(Arrays.asList(ids)).collect(Collectors.counting()));
-
-
-
-
-        Supplier<Stream> streamSupplier = ()->employeeList.stream().map(e->e.netWorth++).filter(e->e%2==0);
-        System.out.println(Arrays.asList(arrayOfEmps));
-        System.out.println(employeeList);
     }
 }
