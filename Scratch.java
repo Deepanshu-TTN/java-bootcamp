@@ -19,6 +19,10 @@ public class Scratch {
         // employee with max salary
         System.out.println("\nEmployee with max salary");
         System.out.println(employees.stream().max(Comparator.comparingDouble(e -> e.salary)));
+
+        // employee with min salary
+        System.out.println("\nEmployee with Min salary");
+        System.out.println(employees.stream().min((Comparator.comparingDouble(e->e.salary))));
         /*
         employees.stream()
                 .collect(Collectors.groupingBy(
@@ -55,6 +59,17 @@ public class Scratch {
                 list.stream().collect(Collectors.groupingBy(e->e, Collectors.counting()))
                         .entrySet().stream().filter(e->e.getValue()>1).toList());
 
+        // max value
+        System.out.println(list.stream().max(Comparator.comparingInt(Integer::valueOf)));
+        //min value
+        System.out.println(list.stream().min(Comparator.comparingInt(e->e)));
+
+        // print all nums ignoring first 5
+        System.out.println(list.stream().skip(5).toList());
+
+        // print second highest
+        System.out.println(list.stream().distinct().sorted(Collections.reverseOrder()).skip(1).findFirst());
+
 
 //        List<List<Integer>> list = Arrays.asList(
 //                Arrays.asList(1,2,3,4),
@@ -62,11 +77,7 @@ public class Scratch {
 //                Arrays.asList(8,9)
 //        );
 //        List<Integer> newList = list.stream().flatMap(Collection::stream).toList();
-
-//        System.out.flush();
-
     }
-
 }
 
 class Employee {
