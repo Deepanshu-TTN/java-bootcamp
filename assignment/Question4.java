@@ -5,7 +5,7 @@ import java.util.Optional;
 public class Question4 {
     public static void main(String[] args) {
             // Optional.of() and Optional.empty()
-            Optional<String> optionalWithValue = Optional.of("Hello Optional!");
+            Optional<String> optionalWithValue = Optional.of("Optional String Deepanshu");
             Optional<String> emptyOptional = Optional.empty();
 
             // isPresent()
@@ -28,7 +28,7 @@ public class Question4 {
 
             // orElseThrow()
             try {
-                String result4 = emptyOptional.orElseThrow(() -> new RuntimeException("Value not present!"));
+                String result4 = emptyOptional.orElseThrow(() -> new RuntimeException("Value not present"));
             } catch (RuntimeException e) {
                 System.out.println("Caught exception from orElseThrow: " + e.getMessage());
             }
@@ -43,16 +43,5 @@ public class Question4 {
                     value -> System.out.println("This will not be printed"),
                     () -> System.out.println("Empty optional handled in ifPresentOrElse")
             );
-
-            // map() and filter()
-            Optional<Integer> lengthOptional = optionalWithValue.map(String::length);
-            lengthOptional.ifPresent(length -> System.out.println("Length of string: " + length));
-
-            Optional<String> longStringOptional = optionalWithValue.filter(s -> s.length() > 10);
-            longStringOptional.ifPresent(s -> System.out.println("Filtered value: " + s));
-
-            Optional<String> shortStringOptional = optionalWithValue.filter(s -> s.length() < 5);
-            System.out.println("Short string optional is present? " + shortStringOptional.isPresent());
-
         }
 }
