@@ -1,5 +1,9 @@
 import java.util.*;
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Scratch {
     public static void main(String[] args) {
@@ -77,6 +81,11 @@ public class Scratch {
 //                Arrays.asList(8,9)
 //        );
 //        List<Integer> newList = list.stream().flatMap(Collection::stream).toList();
+
+        String sentence = "java stream api makes coding easier";
+        Character maxOccuredChar = sentence.replaceAll(" ", "").chars().mapToObj(c-> (char) c)
+                .collect(Collectors.groupingBy(e->e, Collectors.counting())).entrySet().stream().max(Comparator.comparingLong(Map.Entry::getValue)).get().getKey();
+        System.out.println(maxOccuredChar);
     }
 }
 
