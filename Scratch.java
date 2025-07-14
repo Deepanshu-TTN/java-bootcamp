@@ -63,6 +63,11 @@ public class Scratch {
                 list.stream().collect(Collectors.groupingBy(e->e, Collectors.counting()))
                         .entrySet().stream().filter(e->e.getValue()>1).toList());
 
+        // or by this
+        Set<Integer> freq = new HashSet<>();
+        System.out.println("------------------");
+        System.out.println(list.stream().filter(e -> !freq.add(e)).distinct().toList());
+
         // max value
         System.out.println(list.stream().max(Comparator.comparingInt(Integer::valueOf)));
         //min value
