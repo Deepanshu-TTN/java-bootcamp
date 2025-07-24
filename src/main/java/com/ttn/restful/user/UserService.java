@@ -1,5 +1,9 @@
 package com.ttn.restful.user;
 
+import com.fasterxml.jackson.databind.ser.FilterProvider;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -31,11 +35,26 @@ public class UserService {
     public User save(User user) {
         user.setId(++userCount);
         users.add(user);
+        System.out.println(user);
         return user;
     }
 
     public void delete(Integer id) {
         users.removeIf(e->e.getId().equals(id));
+    }
+
+    public MappingJacksonValue getUserIdAndFavoriteFruit(int id){
+        UserDynamic userDynamic = new UserDynamic(findOne(id));
+        SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.
+                filterOutAllExcept("favoriteFruit", "id");
+
+        FilterProvider provider = new SimpleFilterProvider().addFilter("DynamicFilter", filter);
+
+        MappingJacksonValue value = new MappingJacksonValue(userDynamic);
+
+        value.setFilters(provider);
+
+        return value;
     }
 
 }

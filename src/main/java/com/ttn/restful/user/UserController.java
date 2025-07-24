@@ -6,8 +6,14 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.util.List;
 
@@ -56,4 +62,37 @@ public class UserController {
 
         return value;
     }
+
+    // MIME-TYPE VERSIONING
+    @GetMapping(value = "/users/{id}/fav-fruit", produces = "application/vnd.company.app-v2+json")
+    public MappingJacksonValue getUserFavoriteFruitMime(@PathVariable("id") Integer id) {
+        return userService.getUserIdAndFavoriteFruit(id);
+    }
+
+    // Request Parameter Versioning
+    @GetMapping(value = "/users/{id}/fav-fruit", params = "version=2")
+    public MappingJacksonValue getUserFavoriteFruitParam(@PathVariable("id") Integer id) {
+        return userService.getUserIdAndFavoriteFruit(id);
+    }
+
+    // URI versioning
+    @GetMapping("/v2/users/{id}/fav-fruit")
+    public MappingJacksonValue getUserFavoriteFruitURI(@PathVariable("id") Integer id) {
+        return userService.getUserIdAndFavoriteFruit(id);
+    }
+
+    // Header Versioning
+    @GetMapping(value = "/users/{id}/fav-fruit", headers = "X-API-VERSION=2")
+    public MappingJacksonValue getUserFavoriteFruitHeader(@PathVariable("id") Integer id) {
+        return userService.getUserIdAndFavoriteFruit(id);
+    }
+
+    @GetMapping("/users/{id}/hateoas")
+    public EntityModel<User> getUserWithHyperlinks(@PathVariable("id") int id){
+        EntityModel<User> userEntityModel = EntityModel.of(userService.findOne(id));
+        Link link = linkTo(methodOn(this.getClass()).getAllUsers()).withRel("all-users");
+        userEntityModel.add(link);
+        return userEntityModel;
+    }
+
 }

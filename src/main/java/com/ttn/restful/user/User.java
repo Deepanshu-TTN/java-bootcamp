@@ -1,13 +1,13 @@
 package com.ttn.restful.user;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class User {
     private Integer id;
     private String username;
 
-    @JsonIgnore
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private String favoriteFruit;
 
@@ -34,10 +34,12 @@ public class User {
         this.username = username;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
+    @JsonProperty
     public void setPassword(String password) {
         this.password = password;
     }
@@ -48,5 +50,15 @@ public class User {
 
     public void setFavoriteFruit(String favoriteFruit) {
         this.favoriteFruit = favoriteFruit;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", favoriteFruit='" + favoriteFruit + '\'' +
+                '}';
     }
 }
